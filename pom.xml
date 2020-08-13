@@ -20,7 +20,7 @@
 	</properties>
 
 	<modules>
-		<module>lib</module>
+		<module>jpa-encryption</module>
 		<module>app</module>
 	</modules>
 

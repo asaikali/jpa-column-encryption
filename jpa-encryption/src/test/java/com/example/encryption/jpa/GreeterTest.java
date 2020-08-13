@@ -1,4 +1,4 @@
-package com.example.jpa;
+package com.example.encryption.jpa;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.swing.SpinnerListModel;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
@@ -18,9 +19,11 @@ class KeyEntity {
   @Column(name="value")
   private String value;
 
-  @Version
-  @Column(name="version")
-  private int version;
+  @Column(name="name")
+  private String name;
+
+  @Column(name = "current")
+  private Boolean current;
 
   public UUID getId() {
     return id;
@@ -36,5 +39,21 @@ class KeyEntity {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Boolean getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(Boolean current) {
+    this.current = current;
   }
 }

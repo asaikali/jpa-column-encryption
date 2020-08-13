@@ -2,6 +2,7 @@ package com.example.encryption.key;
 
 import java.security.Key;
 import java.util.Optional;
+import org.springframework.security.crypto.encrypt.BytesEncryptor;
 
 /**
  * The key service stores keys securely in the database. All keys are encrypted before they
@@ -10,20 +11,35 @@ import java.util.Optional;
 public interface KeyService {
 
   /**
-   * Loads the key from the database. In the database keys are encrypted so this method will
-   * decrypt the encrypted key using the KeyService configuration.
+   * Create a byte encryptor based on the spring security crypto module. This will configure a
+   * standard password-based bytes encryptor using 256 bit AES encryption with
+   * Galois Counter Mode (GCM). Derives the secret key using PKCS #5's PBKDF2
+   * (Password-Based Key Derivation Function #2).
    *
    * @param keyId The key id to load from the database
-   * @return an optional containing the key.
+   * @return an optional containing the bytes Encryptor.
    */
-  Optional<Key> loadKey(KeyId keyId);
+  Optional<BytesEncryptor> bytesEncryptor(KeyId keyId);
+
 
   /**
-   * Stores the specified key under the specified keyid. The passed in key will be encrypted before
-   * it is stored in the database.
+   * Returns a bytes encryptor based on the current name.
    *
-   * @param keyId
-   * @param key
+   * @param name the name of the key to use to generate the bytes encryptor
+   * @param generateIfMissing generate a key the name if it does not exist
+   * @return
    */
-  void saveKey(KeyId keyId, Key key);
+  Optional<BytesEncryptor> bytesEncryptor(String name, boolean generateIfMissing);
+
+  KeyId getKey(Class<?> clazz);
+
+  /**
+   * Generate a new key, store it in the database securely, give it a name and make it
+   * the current key for thee name.
+   *
+   * @param name
+   * @param current
+   * @return
+   */
+  void generate(KeyId keyId, String name, boolean current);
 }

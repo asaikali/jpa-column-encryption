@@ -1,17 +1,18 @@
 package com.example.encryption;
 
 
-public class SensitiveStringValue implements SensitiveValue<String> {
+public class SensitiveStringValue extends SensitiveValue<String> {
 
   private String value;
 
   @Override
-  public void set(String value) {
+  public SensitiveValue<String> setValue(String value) {
    this.value = value;
+   return this;
   }
 
   @Override
-  public String get() {
+  public String getValue() {
     return this.value;
   }
 }

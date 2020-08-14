@@ -8,11 +8,13 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SensitiveStringConverter implements AttributeConverter <SensitiveValue<String>,String> {
+@Converter(autoApply = true)
+public class SensitiveStringConverter implements AttributeConverter<SensitiveStringValue,String> {
 
   private final KeyService keyService;
   private final Encoder encoder = Base64.getUrlEncoder();
@@ -23,7 +25,7 @@ public class SensitiveStringConverter implements AttributeConverter <SensitiveVa
   }
 
   @Override
-  public String convertToDatabaseColumn(SensitiveValue<String> attribute) {
+  public String convertToDatabaseColumn(SensitiveStringValue attribute) {
     var encryptor = this.keyService.bytesEncryptor(attribute.getKey()).orElseThrow();
     StringBuilder sb = new StringBuilder(attribute.getKey().getId().toString());
     sb.append(":");
@@ -32,7 +34,7 @@ public class SensitiveStringConverter implements AttributeConverter <SensitiveVa
   }
 
   @Override
-  public SensitiveValue<String> convertToEntityAttribute(String dbData) {
+  public SensitiveStringValue convertToEntityAttribute(String dbData) {
     var values = dbData.split(":");
     var keyId = new KeyId(values[0]);
     var encryptor = this.keyService.bytesEncryptor(keyId).orElseThrow();

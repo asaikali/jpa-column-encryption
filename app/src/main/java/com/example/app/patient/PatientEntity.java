@@ -22,7 +22,6 @@ public class PatientEntity {
   private String name;
 
   @Column(name="sin")
-  @Convert(converter = SensitiveStringConverter.class)
   private SensitiveStringValue sin;
 
   public UUID getId() {

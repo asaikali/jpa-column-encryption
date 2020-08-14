@@ -5,10 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
-import javax.swing.SpinnerListModel;
-import org.springframework.beans.factory.annotation.Value;
 
+/**
+ * Database representation of a key used to encrypt column data. Multiple keys can have the same
+ * name but only one of them  should be marked as the  current key.
+ */
 @Entity
 @Table(name = "keyservice_keys")
 class KeyEntity {

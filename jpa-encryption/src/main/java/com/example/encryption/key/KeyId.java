@@ -10,11 +10,11 @@ public final class KeyId {
   private final UUID id;
 
   public KeyId(UUID id) {
-    this.id = id;
+    this.id = Objects.requireNonNull(id);
   }
 
   public KeyId(String id){
-    this.id = UUID.fromString(id);
+    this.id = UUID.fromString(Objects.requireNonNull(id));
   }
 
   public UUID getId() {

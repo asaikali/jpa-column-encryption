@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: "jdbc:tc:postgresql:12:///demo?TC_TMPFS=/testtmpfs:rw"
+    username: postgres
+    password: password
+
+keyservice:
+  password: "6416a9ca-4e94-4157-a016-1add5cfdca5c"
+  salt: "5c0744940b5c369b"

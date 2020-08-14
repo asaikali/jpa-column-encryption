@@ -23,7 +23,7 @@ public interface KeyService {
 
 
   /**
-   * Returns a bytes encryptor based on the current name.
+   * Returns a bytes encryptor configured using the current key for the passed in name.
    *
    * @param name the name of the key to use to generate the bytes encryptor
    * @param generateIfMissing generate a key the name if it does not exist
@@ -31,6 +31,16 @@ public interface KeyService {
    */
   Optional<BytesEncryptor> bytesEncryptor(String name, boolean generateIfMissing);
 
+  /**
+   * Returns the KeyId that should be used to encrypt a object of the passed in type. Be
+   * careful if you ever refactor the class name as old versions in the db won't match
+   * anymore.
+   *
+   * If the key does not exist in the database it will be generated.
+   *
+   * @param clazz the fully qualified name of the class will be used as the key name
+   * @return the keyId to use for encryption operations
+   */
   KeyId getKey(Class<?> clazz);
 
   /**
